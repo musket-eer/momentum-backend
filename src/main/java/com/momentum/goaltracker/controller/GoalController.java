@@ -3,46 +3,52 @@ package com.momentum.goaltracker.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class GoalController {
 
-    private final Map<Integer, String> goalsWithCriteria = new HashMap<>();
-
-    // Constructor to initialize mock data
-    public GoalController() {
-        // Preloading mock data for testing
-        goalsWithCriteria.put(1, "Run a 5k in under 30 minutes");
-        goalsWithCriteria.put(2, "Learn Java programming with 5 small projects");
-        goalsWithCriteria.put(3, "Read 10 books by the end of the year");
-    }
-
-    /**
-     * Handles GET requests to fetch all goals and their criteria.
-     *
-     * @return A map of all stored goals and their criteria.
-     */
-    @GetMapping("/startup")
-    public ResponseEntity<Map<Integer, String>> getGoalsWithCriteria() {
-        return ResponseEntity.ok(goalsWithCriteria);
-    }
-
-    /**
-     * Handles POST requests to add new goals with criteria.
-     *
-     * @param goals A map of goal numbers to their criteria.
-     * @return A success message.
-     */
     @PostMapping("/startup")
-    public ResponseEntity<String> addGoalsWithCriteria(@RequestBody Map<Integer, String> goals) {
-        if (goals == null || goals.isEmpty()) {
-            return ResponseEntity.badRequest().body("Goals cannot be empty.");
+    public ResponseEntity<String> handleStartup(@RequestBody List<GoalRequest> goals) {
+        goals.forEach(goal -> {
+            System.out.println("ID: " + goal.getId());
+            System.out.println("Goal: " + goal.getGoal());
+            System.out.println("Criteria: " + goal.getCriteria());
+        });
+
+        return ResponseEntity.ok("Goals processed successfully!");
+    }
+
+    // Nested static class for simplicity; ideally, this would be in its own file.
+    public static class GoalRequest {
+        private int id;
+        private String goal;
+        private String criteria;
+
+        // Getters and setters
+        public int getId() {
+            return id;
         }
 
-        goalsWithCriteria.putAll(goals);
-        return ResponseEntity.ok("Goals and criteria successfully added!");
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getGoal() {
+            return goal;
+        }
+
+        public void setGoal(String goal) {
+            this.goal = goal;
+        }
+
+        public String getCriteria() {
+            return criteria;
+        }
+
+        public void setCriteria(String criteria) {
+            this.criteria = criteria;
+        }
     }
 }

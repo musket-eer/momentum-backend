@@ -1,10 +1,11 @@
 package com.momentum.goaltracker.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -12,21 +13,40 @@ import java.util.Map;
 @RequestMapping("/api")
 public class GoalProgressController {
 
-    /**
-     * Handles GET requests to /dashboard and returns the progress of all goals.
-     *
-     * @return A list of goals and their progress.
-     */
     @GetMapping("/dashboard")
-    public List<Map<String, Object>> getGoalProgress() {
-        // Simulating a database or service fetching updated goal progress
-        List<Map<String, Object>> goalsProgress = new ArrayList<>();
+    public ResponseEntity<List<Map<String, Object>>> getDashboardData() {
+        // Mock data
+        List<Map<String, Object>> dashboardData = Arrays.asList(
+                Map.of(
+                        "id", 1,
+                        "name", "Read 10 pages daily",
+                        "description", "Daily reading habit",
+                        "scores", Arrays.asList(
+                                Map.of("day", "Mon", "score", 3),
+                                Map.of("day", "Tue", "score", 4),
+                                Map.of("day", "Wed", "score", 5),
+                                Map.of("day", "Thu", "score", 4),
+                                Map.of("day", "Fri", "score", 4),
+                                Map.of("day", "Sat", "score", 15),
+                                Map.of("day", "Sun", "score", 4)
+                        )
+                ),
+                Map.of(
+                        "id", 2,
+                        "name", "Exercise 30 minutes",
+                        "description", "Daily workout",
+                        "scores", Arrays.asList(
+                                Map.of("day", "Mon", "score", 2),
+                                Map.of("day", "Tue", "score", 3),
+                                Map.of("day", "Wed", "score", 3),
+                                Map.of("day", "Thu", "score", 4),
+                                Map.of("day", "Fri", "score", 4),
+                                Map.of("day", "Sat", "score", 5),
+                                Map.of("day", "Sun", "score", 5)
+                        )
+                )
+        );
 
-        // Example goals with progress (can be replaced with a service call)
-        goalsProgress.add(Map.of("goal", "Improve Fitness", "progress", 70));
-        goalsProgress.add(Map.of("goal", "Learn Programming", "progress", 85));
-        goalsProgress.add(Map.of("goal", "Read More Books", "progress", 50));
-
-        return goalsProgress;
+        return ResponseEntity.ok(dashboardData);
     }
 }
