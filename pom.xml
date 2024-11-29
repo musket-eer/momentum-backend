@@ -28,8 +28,6 @@
 	</scm>
 	<properties>
 		<java.version>17</java.version>
-<!--		<spring-ai.version>1.0.0-M4</spring-ai.version>-->
-<!--		<spring.ai.openai.api-key>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</spring.ai.openai.api-key>-->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -40,10 +38,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.ai</groupId>-->
-<!--			<artifactId>spring-ai-openai-spring-boot-starter</artifactId>-->
-<!--		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka</artifactId>
